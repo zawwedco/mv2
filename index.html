@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mountain View Egypt</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#b8933a; --gold-l:#d4af5a; --dark:#1a1a1a; --bg:#f9f7f3; --white:#fff; --border:#e0d8c8; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Cairo',sans-serif;color:#333;background:var(--white);overflow-x:hidden}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold);padding:12px 30px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,.08)}
+  nav img{height:45px}
+  .nav-btns{display:flex;gap:10px}
+  .btn-call,.btn-wa{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:6px;font-family:'Cairo',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:.2s}
+  .btn-call{background:var(--gold);color:#fff;border:2px solid var(--gold)}
+  .btn-call:hover{background:var(--gold-l)}
+  .btn-wa{background:#25D366;color:#fff;border:2px solid #25D366}
+  .btn-wa:hover{background:#1ebe5d}
+
+  /* HERO */
+  .hero{margin-top:70px;position:relative;min-height:92vh;background:#0d1b2a;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.08-1-1024x576.png') center/cover no-repeat;opacity:.38}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,20,15,.45) 0%,rgba(10,20,15,.88) 100%)}
+  .hero-content{position:relative;z-index:2;text-align:center;padding:40px 20px;color:#fff}
+  .hero-badge{display:inline-block;background:var(--gold);color:#fff;padding:6px 24px;border-radius:30px;font-size:13px;font-weight:700;margin-bottom:20px;letter-spacing:2px;text-transform:uppercase;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+  .hero h1{font-size:clamp(42px,7vw,80px);font-weight:900;line-height:1.1;margin-bottom:10px}
+  .hero h1 span{color:var(--gold-l)}
+  .hero-sub{font-size:clamp(18px,3vw,26px);font-weight:500;margin-bottom:12px;opacity:.9}
+  .hero-desc{max-width:680px;margin:0 auto 24px;font-size:15px;line-height:1.9;opacity:.85;background:rgba(0,0,0,.3);padding:20px 28px;border-radius:12px;border-right:4px solid var(--gold)}
+  .hero-offer{display:inline-block;background:rgba(184,147,58,.2);border:2px solid var(--gold);padding:14px 32px;border-radius:10px;font-size:18px;font-weight:700;color:var(--gold-l);margin-bottom:28px}
+  .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .hero-btns a{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:8px;font-size:16px;font-weight:700;text-decoration:none;transition:.25s}
+  .hero-btns .btn-primary{background:var(--gold);color:#fff}
+  .hero-btns .btn-primary:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,147,58,.4)}
+  .hero-btns .btn-green{background:#25D366;color:#fff}
+  .hero-btns .btn-green:hover{background:#1ebe5d;transform:translateY(-2px)}
+
+  /* FLOAT */
+  .float-phone{position:fixed;bottom:24px;left:24px;z-index:999;display:flex;flex-direction:column;gap:10px}
+  .float-btn{width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,.25);transition:.2s}
+  .float-btn:hover{transform:scale(1.1)}
+  .float-wa{background:#25D366;color:#fff}
+  .float-call{background:var(--gold);color:#fff}
+
+  /* GOLD DIV */
+  .gold-divider{height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+
+  /* SECTIONS */
+  section{padding:60px 20px}
+  .sec-title{font-size:clamp(22px,4vw,32px);font-weight:800;color:var(--dark);margin-bottom:8px;text-align:center}
+  .sec-sub{color:#777;font-size:15px;margin-bottom:36px;text-align:center}
+
+  /* LOCATION */
+  .loc-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;max-width:800px;margin:0 auto}
+  .loc-item{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 22px;font-size:15px;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:.2s}
+  .loc-item:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .loc-icon{width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0}
+
+  /* GALLERY */
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;max-width:1100px;margin:0 auto}
+  .gallery-img{width:100%;height:200px;object-fit:cover;border-radius:10px;cursor:pointer;transition:.3s;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+  .gallery-img:hover{transform:scale(1.03);box-shadow:0 8px 28px rgba(0,0,0,.18)}
+
+  /* LIGHTBOX */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:20px}
+  .lightbox.active{display:flex}
+  .lightbox img{max-width:90vw;max-height:88vh;border-radius:10px;box-shadow:0 0 60px rgba(0,0,0,.6)}
+  .lb-close{position:absolute;top:20px;right:30px;font-size:36px;color:#fff;cursor:pointer;font-weight:300;line-height:1}
+  .lb-close:hover{color:var(--gold)}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:42px;color:#fff;cursor:pointer;user-select:none;padding:10px;background:rgba(0,0,0,.4);border-radius:8px;line-height:1}
+  .lb-nav:hover{background:rgba(184,147,58,.5)}
+  .lb-prev{left:20px}
+  .lb-next{right:20px}
+
+  /* FORM */
+  .form-section{background:var(--dark);color:#fff;text-align:center}
+  .mv-logo-small{height:40px;margin:0 auto 16px;display:block;filter:brightness(0) invert(1)}
+  .reg-form{max-width:480px;margin:0 auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:36px 30px}
+  .reg-form input,.reg-form select{width:100%;padding:13px 16px;margin-bottom:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-family:'Cairo',sans-serif;font-size:15px;outline:none;transition:.2s}
+  .reg-form input::placeholder{color:rgba(255,255,255,.5)}
+  .reg-form input:focus,.reg-form select:focus{border-color:var(--gold)}
+  .reg-form select option{background:#1a1a1a;color:#fff}
+  .btn-submit{width:100%;padding:14px;background:var(--gold);color:#fff;border:none;border-radius:8px;font-family:'Cairo',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:.2s;margin-top:4px}
+  .btn-submit:hover{background:var(--gold-l);transform:translateY(-2px)}
+
+  /* PRICES */
+  .prices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1000px;margin:0 auto 36px}
+  .price-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;transition:.2s;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+  .price-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .price-card-name{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:10px}
+  .price-card-price{font-size:19px;font-weight:800;color:var(--gold);margin-bottom:12px}
+  .price-card-btn{display:block;padding:9px;background:var(--dark);color:#fff;border-radius:7px;font-size:13px;font-weight:700;text-decoration:none;transition:.2s}
+  .price-card-btn:hover{background:var(--gold)}
+
+  /* AMENITIES */
+  .amenities-section{background:var(--dark);color:#fff}
+  .amenities-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;max-width:800px;margin:0 auto}
+  .amenity-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:22px 28px;font-size:15px;font-weight:600;color:#fff;text-align:center;transition:.2s;min-width:140px}
+  .amenity-item:hover{border-color:var(--gold);background:rgba(184,147,58,.1)}
+  .amenity-icon{font-size:28px;margin-bottom:8px}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;max-width:1100px;margin:0 auto}
+  .project-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:.3s;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+  .project-card:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(0,0,0,.12)}
+
+  /* Project gallery inside card */
+  .proj-gallery{position:relative;height:210px;overflow:hidden}
+  .proj-gallery-img{width:100%;height:100%;object-fit:cover;cursor:pointer;display:none}
+  .proj-gallery-img.active{display:block}
+  .proj-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+  .proj-nav:hover{background:rgba(184,147,58,.8)}
+  .proj-nav.prev{left:8px}
+  .proj-nav.next{right:8px}
+  .proj-dots{position:absolute;bottom:8px;width:100%;display:flex;justify-content:center;gap:5px}
+  .proj-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:.2s}
+  .proj-dot.active{background:var(--gold)}
+
+  .project-card-body{padding:22px}
+  .project-name{font-size:19px;font-weight:800;color:var(--dark);margin-bottom:8px}
+  .project-location{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:4px}
+  .project-price{font-size:15px;color:#555;margin-bottom:5px}
+  .project-price strong{color:var(--dark)}
+  .project-payment{font-size:14px;color:#25D366;font-weight:600;margin-bottom:16px}
+  .project-btns{display:flex;gap:8px}
+  .project-btns a{flex:1;padding:9px;border-radius:7px;font-size:13px;font-weight:700;text-align:center;text-decoration:none;transition:.2s}
+  .project-btns .p-call{background:var(--gold);color:#fff}
+  .project-btns .p-wa{background:#25D366;color:#fff}
+  .project-btns a:hover{opacity:.85}
+
+  /* ABOUT */
+  .about-section{padding:60px 30px;background:var(--bg);display:flex;align-items:center;justify-content:center;gap:50px;flex-wrap:wrap}
+  .about-logo{height:60px}
+  .about-text{max-width:540px}
+  .about-text p{font-size:15px;line-height:2;color:#555}
+
+  footer{background:var(--dark);color:#fff;text-align:center;padding:24px 20px;font-size:13px;border-top:2px solid var(--gold)}
+  footer img{height:35px;margin-bottom:12px;filter:brightness(0) invert(1)}
+  footer p{opacity:.6}
+
+  @media(max-width:600px){nav{padding:10px 14px}.lb-nav{font-size:28px;padding:8px}}
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB(event)">
+  <span class="lb-close" onclick="closeLightbox()">×</span>
+  <span class="lb-nav lb-prev" onclick="lbNav(-1)">‹</span>
+  <img id="lb-img" src="" alt="">
+  <span class="lb-nav lb-next" onclick="lbNav(1)">›</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <img src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_Logo_Horizontal.png" alt="Mountain View" onerror="this.style.display='none'">
+  <div class="nav-btns">
+    <a class="btn-call" href="tel:01095453622">📞 اتصل بنا</a>
+    <a class="btn-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔥 Launching Now</div>
+    <h1>كريك <span>فيو</span></h1>
+    <div class="hero-sub">التجمع الخامس — Golden Square</div>
+    <div class="hero-desc">في قلب الـ Golden Square، صممنا مجتمع سكني يقدم معنى مختلف للحياة اليومية… مساحات مفتوحة، خصوصية حقيقية، وتفاصيل مدروسة. المشروع على مساحة 119 فدان بنسبة بناء 16% فقط.</div>
+    <div class="hero-offer">⭐ مقدم 5% • تقسيط حتى 14 سنة • أول قسط بعد 3 شهور</div>
+    <div class="hero-btns">
+      <a class="btn-primary" href="tel:01095453622">📞 01095453622</a>
+      <a class="btn-green" href="https://wa.me/201095453622">💬 واتساب</a>
+    </div>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- LOCATION -->
+<section style="background:var(--bg)">
+  <div class="sec-title">موقع يختصر وقتك وحياتك</div>
+  <div class="sec-sub">كريك فيو — في قلب التجمع الخامس</div>
+  <div class="loc-grid">
+    <div class="loc-item"><div class="loc-icon">🌳</div>دقيقة من Family Park</div>
+    <div class="loc-item"><div class="loc-icon">🛣️</div>محور محمد نجيب</div>
+    <div class="loc-item"><div class="loc-icon">🎓</div>10 دقائق من AUC</div>
+    <div class="loc-item"><div class="loc-icon">✈️</div>10 دقائق من مطار القاهرة</div>
+    <div class="loc-item"><div class="loc-icon">🛍️</div>Cairo Festival City</div>
+    <div class="loc-item"><div class="loc-icon">🏛️</div>العاصمة الإدارية</div>
+  </div>
+</section>
+
+<!-- CREEKVIEW GALLERY -->
+<section style="background:#fff">
+  <div class="sec-title">لمحات من كريك فيو</div>
+  <div class="sec-sub">شاهد جمال تصميم المشروع — انقر على الصور للتكبير</div>
+  <div class="gallery-grid" id="cv-gallery">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.08-2.jpeg" alt="كريك فيو 1" onclick="openLB(this,0,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.08.jpeg" alt="كريك فيو 2" onclick="openLB(this,1,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.09-1.jpeg" alt="كريك فيو 3" onclick="openLB(this,2,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.09.jpeg" alt="كريك فيو 4" onclick="openLB(this,3,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.08-1.png" alt="كريك فيو 5" onclick="openLB(this,4,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/WhatsApp-Image-2026-05-18-at-17.20.08-1.jpeg" alt="كريك فيو 6" onclick="openLB(this,5,'cv')">
+    <img class="gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/ddd-1024x1024.png" alt="كريك فيو موقع" onclick="openLB(this,6,'cv')">
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- FORM 1 -->
+<section class="form-section" id="form">
+  <img class="mv-logo-small" src="https://mountianvieweg.com/wp-content/uploads/2025/01/mv-slogo.png" alt="MV">
+  <div class="sec-title" style="color:#fff;margin-bottom:6px">سجّل بياناتك</div>
+  <div style="color:rgba(255,255,255,.6);margin-bottom:28px;font-size:14px">وسيتواصل معك مستشارنا في أقرب وقت</div>
+  <div class="reg-form">
+    <input type="text" placeholder="الاسم">
+    <input type="tel" placeholder="رقم الهاتف">
+    <input type="email" placeholder="البريد الإلكتروني">
+    <button class="btn-submit" onclick="alert('شكراً! سيتم التواصل معك قريباً')">إرسال</button>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- PRICES -->
+<section style="background:var(--bg)">
+  <div class="sec-title">أسعار مشروع كريك فيو</div>
+  <div class="sec-sub">نظام سداد 14 سنة واستلام سنتين ونصف</div>
+  <div class="prices-grid">
+    <div class="price-card"><div class="price-card-name">Garden Millennial 2 BRs</div><div class="price-card-price">7.5 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Millennial 2 BRs</div><div class="price-card-price">6.9 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Garden Millennial 1 BR</div><div class="price-card-price">6.5 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Millennial 1 BR</div><div class="price-card-price">5.4 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">I-Villa Garden 3 BRs</div><div class="price-card-price">12.9 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Skyvilla 3 BRs</div><div class="price-card-price">11.5 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Garden Millennial 3 BRs</div><div class="price-card-price">9.8 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+    <div class="price-card"><div class="price-card-name">Millennial 3 BRs</div><div class="price-card-price">8.6 مليون</div><a class="price-card-btn" href="#form">اعرف أكتر</a></div>
+  </div>
+  <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="tel:01095453622" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">📞 اتصل الآن</a>
+    <a href="https://wa.me/201095453622" style="display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#25D366;color:#fff;border-radius:8px;text-decoration:none;font-weight:700;font-size:15px">💬 واتساب</a>
+  </div>
+</section>
+
+<!-- AMENITIES -->
+<section class="amenities-section">
+  <div class="sec-title" style="color:#fff">تجربة حياة استثنائية</div>
+  <div class="sec-sub" style="color:rgba(255,255,255,.6)">كل ما تحتاجه لحياة عصرية وصحية محاطة بالطبيعة</div>
+  <div class="amenities-grid">
+    <div class="amenity-item"><div class="amenity-icon">🏊</div>Swimming Pool</div>
+    <div class="amenity-item"><div class="amenity-icon">🏡</div>Clubhouse</div>
+    <div class="amenity-item"><div class="amenity-icon">🛒</div>Commercial Areas</div>
+    <div class="amenity-item"><div class="amenity-icon">🎡</div>Kids Areas</div>
+    <div class="amenity-item"><div class="amenity-icon">🌿</div>Landscape</div>
+    <div class="amenity-item"><div class="amenity-icon">🔒</div>Security 24/7</div>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- PROJECTS -->
+<section style="background:#fff">
+  <div class="sec-title">مشاريع Mountain View</div>
+  <div class="sec-sub">اختر المشروع المناسب لك — تصفح صور كل مشروع</div>
+  <div class="projects-grid">
+
+    <!-- CRYSTA -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/06/WhatsApp-Image-2025-06-27-at-02.23.10-1024x683.jpeg" alt="Crysta 1" onclick="openLB(this,0,'crysta')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/1_1b8c6bf7dd-1.webp" alt="Crysta 2" onclick="openLB(this,1,'crysta')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/2_4e25a41a39.webp" alt="Crysta 3" onclick="openLB(this,2,'crysta')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/3_f2de27a0eb-1.webp" alt="Crysta 4" onclick="openLB(this,3,'crysta')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/5_1736e83643.webp" alt="Crysta 5" onclick="openLB(this,4,'crysta')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2026/05/Beach_Club_3_4f0dcc6642.jpg" alt="Crysta 6" onclick="openLB(this,5,'crysta')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span><span class="proj-dot"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Crysta — Sidi Abdel Rahman</div>
+        <div class="project-location">📍 الكيلو 123 — سيدي عبد الرحمن</div>
+        <div class="project-price">تبدأ من <strong>14 مليون</strong> — مقدم 5% • 9 سنوات</div>
+        <div class="project-payment">🏖️ شاطئ خاص • 90% وحدات على البحر</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JIRIAN -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/05/3-1.jpg" alt="Jirian 1" onclick="openLB(this,0,'jirian')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/05/1.webp" alt="Jirian 2" onclick="openLB(this,1,'jirian')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/05/2.webp" alt="Jirian 3" onclick="openLB(this,2,'jirian')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Jirian — 6 October</div>
+        <div class="project-location">📍 محور الشيخ زايد — 6 أكتوبر</div>
+        <div class="project-price">تبدأ من <strong>12 مليون</strong> — مقدم 5% • 8 سنوات</div>
+        <div class="project-payment">🌊 إطلالة على النيل • مدينة متكاملة</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAGE -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Unit_Types_Gallery_9_1af565c3d4.webp" alt="Plage 1" onclick="openLB(this,0,'plage')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Unit_Types_Gallery_6_6a81484c01.webp" alt="Plage 2" onclick="openLB(this,1,'plage')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Unit_Types_Gallery_8_bf9c6d235c.webp" alt="Plage 3" onclick="openLB(this,2,'plage')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Plage — Sidi Abdel Rahman</div>
+        <div class="project-location">📍 الكيلو 120 — ساحل شمالي</div>
+        <div class="project-price">تبدأ من <strong>15 مليون</strong> — مقدم 5% • 10 سنوات</div>
+        <div class="project-payment">🌊 لاجون • كريستال لاجونز</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- iCITY NEW CAIRO -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00008_692d8e4ccc.webp" alt="iCity NC 1" onclick="openLB(this,0,'icitync')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00007_a4216c50b9-1.webp" alt="iCity NC 2" onclick="openLB(this,1,'icitync')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00002_45b024e362-1.webp" alt="iCity NC 3" onclick="openLB(this,2,'icitync')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">iCity — New Cairo</div>
+        <div class="project-location">📍 التجمع الخامس — القاهرة الجديدة</div>
+        <div class="project-price">تبدأ من <strong>14 مليون</strong> — مقدم 10% • 8 سنوات</div>
+        <div class="project-payment">🏝️ 500 فدان • 6 جزر متصلة</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALIVA -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Project_Cover_Overview_8_b42788db8a.webp" alt="Aliva 1" onclick="openLB(this,0,'aliva')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Project_Cover_Overview_10_cdefdacca3-2.webp" alt="Aliva 2" onclick="openLB(this,1,'aliva')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Project_Cover_Overview_6_96bf9bc2d9-3.webp" alt="Aliva 3" onclick="openLB(this,2,'aliva')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Aliva — Mostakbal City</div>
+        <div class="project-location">📍 مدينة المستقبل</div>
+        <div class="project-price">تبدأ من <strong>11 مليون</strong> — مقدم 5% • 10 سنوات</div>
+        <div class="project-payment">🌿 664 فدان • River Park & Fields Park</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MV4 -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_4_9aacb4cefd-1.webp" alt="MV4 1" onclick="openLB(this,0,'mv4')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_4_4_4f8cbff544.webp" alt="MV4 2" onclick="openLB(this,1,'mv4')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_4_3_1cad0b50a7.webp" alt="MV4 3" onclick="openLB(this,2,'mv4')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_4_2_fe43cf875a.webp" alt="MV4 4" onclick="openLB(this,3,'mv4')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Mountain View 4 — 6 October</div>
+        <div class="project-location">📍 السادس من أكتوبر</div>
+        <div class="project-price">تبدأ من <strong>23 مليون</strong></div>
+        <div class="project-payment">🏛️ فلل فاخرة مستقلة • 46 فدان</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- KINGSWAY -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00001_410a61fdc0-1.webp" alt="KW 1" onclick="openLB(this,0,'kw')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00007_1275a356aa.webp" alt="KW 2" onclick="openLB(this,1,'kw')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00009_7c3fe19047.webp" alt="KW 3" onclick="openLB(this,2,'kw')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Image00013_d97c2eb7a9.webp" alt="KW 4" onclick="openLB(this,3,'kw')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">Kingsway — 6 October</div>
+        <div class="project-location">📍 السادس من أكتوبر</div>
+        <div class="project-price">تبدأ من <strong>10 مليون</strong> — مقدم 5% • 8 سنوات</div>
+        <div class="project-payment">👑 مساحات من 130م • تصميم ملكي</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- iCITY 6 OCT -->
+    <div class="project-card">
+      <div class="proj-gallery">
+        <img class="proj-gallery-img active" src="https://mountianvieweg.com/wp-content/uploads/2025/01/2222222.webp" alt="iCity Oct 1" onclick="openLB(this,0,'icityoct')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/Mountain-View-Icity-In-6-October-768x414-1.jpg" alt="iCity Oct 2" onclick="openLB(this,1,'icityoct')">
+        <img class="proj-gallery-img" src="https://mountianvieweg.com/wp-content/uploads/2025/01/mountain-view-icity-october-ivilla.jpg" alt="iCity Oct 3" onclick="openLB(this,2,'icityoct')">
+        <button class="proj-nav prev" onclick="slideProj(this,-1)">‹</button>
+        <button class="proj-nav next" onclick="slideProj(this,1)">›</button>
+        <div class="proj-dots"><span class="proj-dot active"></span><span class="proj-dot"></span><span class="proj-dot"></span></div>
+      </div>
+      <div class="project-card-body">
+        <div class="project-name">iCity — 6 October</div>
+        <div class="project-location">📍 السادس من أكتوبر</div>
+        <div class="project-price">تبدأ من <strong>10 مليون</strong> — مقدم 5% • 8 سنوات</div>
+        <div class="project-payment">🏘️ فلل • تاون هاوس • شقق</div>
+        <div class="project-btns">
+          <a class="p-call" href="tel:01095453622">📞 اتصل</a>
+          <a class="p-wa" href="https://wa.me/201095453622">💬 واتساب</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- FORM 2 -->
+<section class="form-section" id="form2">
+  <img class="mv-logo-small" src="https://mountianvieweg.com/wp-content/uploads/2025/01/mv-slogo.png" alt="MV">
+  <div class="sec-title" style="color:#fff;margin-bottom:6px">سجّل بياناتك</div>
+  <div style="color:rgba(255,255,255,.6);margin-bottom:28px;font-size:14px">واختر موعداً مناسباً للتواصل</div>
+  <div class="reg-form">
+    <input type="text" placeholder="الاسم">
+    <input type="email" placeholder="البريد الإلكتروني">
+    <input type="tel" placeholder="رقم الهاتف">
+    <select>
+      <option value="" disabled selected>موعد للتواصل</option>
+      <option>من 10 ص إلى 2 م</option>
+      <option>من 2 م إلى 5 م</option>
+      <option>من 5 م إلى 7 م</option>
+      <option>من 7 م إلى 10 م</option>
+    </select>
+    <button class="btn-submit" onclick="alert('شكراً! سيتم التواصل معك في الموعد المحدد')">إرسال</button>
+  </div>
+</section>
+<div class="gold-divider"></div>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <img class="about-logo" src="https://mountianvieweg.com/wp-content/uploads/2025/01/mv-slogo.png" alt="Mountain View">
+  <div class="about-text">
+    <p>تأسست <strong>Mountain View</strong> في عام 2005، تسعى إلى تقديم مشروعات تمزج بين الحياة العصرية والطبيعة، مع التركيز على خلق بيئة سكنية توفر رفاهية للسكان في جميع جوانب حياتهم. يتم تصميم المشاريع بعناية لضمان بيئة صحية ومتوازنة من حيث المساحات الخضراء، المرافق الحديثة، والموقع الاستراتيجي.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://mountianvieweg.com/wp-content/uploads/2025/01/MV_Logo_Horizontal.png" alt="Mountain View">
+  <p>Copyright © 2025 Mountain View. All rights reserved</p>
+</footer>
+
+<!-- FLOAT -->
+<div class="float-phone">
+  <a class="float-btn float-wa" href="https://wa.me/201095453622">💬</a>
+  <a class="float-btn float-call" href="tel:01095453622">📞</a>
+</div>
+
+<script>
+// ---- LIGHTBOX ----
+const galleries = {};
+function openLB(img, idx, gid) {
+  const g = document.getElementById(gid + '-gallery') || img.closest('.proj-gallery') || img.closest('section');
+  const imgs = gid === 'cv'
+    ? [...document.getElementById('cv-gallery').querySelectorAll('.gallery-img')]
+    : [...img.closest('.proj-gallery').querySelectorAll('.proj-gallery-img')];
+  galleries._current = { imgs: imgs.map(i => i.src), idx };
+  document.getElementById('lb-img').src = imgs[idx].src;
+  document.getElementById('lightbox').classList.add('active');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+function closeLB(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
+function lbNav(dir) {
+  const g = galleries._current;
+  g.idx = (g.idx + dir + g.imgs.length) % g.imgs.length;
+  document.getElementById('lb-img').src = g.imgs[g.idx];
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// ---- PROJECT SLIDER ----
+function slideProj(btn, dir) {
+  const gallery = btn.closest('.proj-gallery');
+  const imgs = [...gallery.querySelectorAll('.proj-gallery-img')];
+  const dots = [...gallery.querySelectorAll('.proj-dot')];
+  let cur = imgs.findIndex(i => i.classList.contains('active'));
+  imgs[cur].classList.remove('active');
+  dots[cur]?.classList.remove('active');
+  cur = (cur + dir + imgs.length) % imgs.length;
+  imgs[cur].classList.add('active');
+  dots[cur]?.classList.add('active');
+}
+// dot click
+document.querySelectorAll('.proj-dot').forEach(dot => {
+  dot.addEventListener('click', () => {
+    const gallery = dot.closest('.proj-gallery');
+    const imgs = [...gallery.querySelectorAll('.proj-gallery-img')];
+    const dots = [...gallery.querySelectorAll('.proj-dot')];
+    const idx = dots.indexOf(dot);
+    imgs.forEach(i => i.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    imgs[idx].classList.add('active');
+    dot.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
